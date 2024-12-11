@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Animal:<input id="animal">
+    Sex: <select id="sex">
+        <option>male</option>
+        <option>female</option>
+    </select>
+    Origin: <input id="origin">
+    <hr>
+    <div id="display"></div>
+    <button onclick="addAnimal()">Add Animal</button>
+    <button onclick="saveAnimal()">Save</button>
+    <hr>
+    <script>
+        let animals = [
+            { animal: "panda", sex: "male", origin: "China", age: 32 },
+            { animal: "tiger", sex: "female", origin: "China", age: 27 },
+            { animal: "dragon", sex: "female", origin: "China", age: 4873 },
+            { animal: "gyaridos", sex: "male", origin: "Japan", age: 6 },
+            { animal: "killer whale", sex: "male", origin: "North America", age: 15 }
+        ]
+        console.table(animals);
+
+        function saveAnimal() {
+            localStorage.setItem("myAnimals", JSON.stringify(animals))
+        }
+
+        function del(ind) {
+            console.log('del...' + ind);
+            animals.splice(ind, 1)
+            displayAnimals()
+        }
+
+        async function displayAnimals() {
+            display.innerHTML = ""
+            for (index = 0; index < animals.length; index++) {
+                console.log(animals[index]);
+                display.innerHTML += `
+                <button onclick='del(${index})'> Delete</button>
+                animal: ${animals[index].animal}
+                sex: ${animals[index].sex}
+                origin: ${animals[index].origin}
+                <br>`
+            }
+        }
+        displayAnimals()
+        function updateAnimals() {
+            animals[ind].animal = animal.value
+            displayAnimals()
+        }
+
+
+        displayAnimals()
+        function addAnimal() {
+            animals.push({ animal: animal.value, sex: sex.value, origin: "", age: "" })
+            displayAnimals()
+        }
+    </script>
+</body>
+
+</html>
